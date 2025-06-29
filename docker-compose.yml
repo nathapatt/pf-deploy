@@ -3,6 +3,7 @@ services:
   postgres:
     image: postgres:17-alpine
     container_name: ${PROJECT_NAME}-db
+    restart: always
     volumes:
       - pf-data:/var/lib/postgresql/data
       - ./_entrypoint:/docker-entrypoint-initdb.d
@@ -19,6 +20,7 @@ services:
       - postgres
     image: ${BACKEND_IMAGE_NAME}
     container_name: ${PROJECT_NAME}-backend
+    restart: always
     networks:
       - pf-net
     environment:
@@ -41,6 +43,7 @@ services:
       - backend
     image: ${FRONTEND_IMAGE_NAME}
     container_name: ${PROJECT_NAME}-frontend
+    restart: always
     ports:
       - ${FRONTEND_PORT}:${FRONTEND_PORT}
     networks:
