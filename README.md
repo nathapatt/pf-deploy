@@ -5,7 +5,6 @@
 ## Get started
 
 - Make `.env` from `.env.example` (Make necessary changes.)
-  - Change the carriage return to `LF` in `./entrypoint`
 - Take care of `./_entrypoint/init.sh`
   - Windows: Make sure that you save with LF option.
   - Mac: `chmod +x ./\_entrypoint/init.sh`
