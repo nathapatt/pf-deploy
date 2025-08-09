@@ -34,13 +34,12 @@ services:
       - PORT=${PORT}
     volumes:
       - ./logs:/app/logs
-    post_start:
-      - command:
-          [
-            "sh",
-            "-c",
-            'npm run db:migrate | awk ''{ print strftime("[%Y-%m-%d %H:%M:%S]"), $0; fflush(); }'' | tee -a /app/logs/migration.log',
-          ]
+    command: >
+          sh -c "
+          export DATABASE_URL=postgresql://$$POSTGRES_APP_USER:$$POSTGRES_APP_PASSWORD@$$POSTGRES_HOST:$$POSTGRES_PORT/$$POSTGRES_DB &&
+          npx prisma migrate deploy &&
+          npm run start:prod
+          "
   frontend:
     depends_on:
       - backend
